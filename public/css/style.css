@@ -62,7 +62,6 @@ h1 {
   padding: 1rem;
   /* color: rgb(255,200,61); */
   text-shadow: 2px 2px black;
-
 }
 .bear-img {
   border-radius: 0 15px 15px 0;
@@ -106,6 +105,7 @@ h1 {
   color: rgb(46, 248, 255);
   background-color: rgba(0, 0, 0, 0.61);
   border-radius: 10px;
+  padding: 0 1rem;
 }
 
 .display-live-balance-negative {

@@ -4,7 +4,8 @@ env.js
 config.js
 
 # testing file
-app.test.js
+quotes.test.js
+trial.js
 
 # Logs
 logs

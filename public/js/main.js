@@ -27,8 +27,8 @@ const shares = [
 const user = {
   firstName: 'Luis',
   lastName: 'Rodrigues',
-  currency: 'GBP'
-}
+  currency: 'USD',
+};
 
 const submitButton = document.querySelector('#add-shares-btn');
 submitButton.addEventListener('click', handleSubmit);
@@ -87,7 +87,7 @@ const balanceBtn = document.querySelector('#balance-btn');
 balanceBtn.addEventListener('click', getBalance);
 
 //get the total value of the foreign shares in GBP
-function getGbpValue(currency, value, invested) {
+function getBalanceInUserCurrency(currency, value, invested) {
   currency = shares
     .filter((i) => i.currency === currency)
     .reduce((total, share) => {
@@ -97,17 +97,10 @@ function getGbpValue(currency, value, invested) {
   return Math.round(currency / value);
 }
 
-// get the portfolio total value in GBP
-// async function gbpBalance(total) {
-//   const { USD, EUR, GBP } = await getExchangeValue();
-//   return (
-//     getGbpValue('USD', USD, total) + getGbpValue('GBP', GBP, total) + getGbpValue('EUR', EUR, total)
-//   );
-// }
 async function getConvertionOf(total) {
   const exchange = await getExchangeValue(user.currency);
   return Object.entries(exchange).reduce((acc, [key, value]) => {
-     return acc + getGbpValue(key, value, total)
+    return acc + getBalanceInUserCurrency(key, value, total);
   }, 0);
 }
 
@@ -116,11 +109,10 @@ async function getBalance() {
   const totalBalance = await getConvertionOf('total');
   const liveBalance = await getConvertionOf('liveTotal');
   console.log(shares);
-
-
-  console.log( 'Invested', totalBalance, 'Live', liveBalance);
+  console.log('Invested', totalBalance, 'Live', liveBalance);
   showBalance(liveBalance, totalBalance);
 }
+
 
 function showBalance(liveBalance, totalBalance) {
   const newDiv = document.createElement('div');
@@ -134,9 +126,13 @@ function showBalance(liveBalance, totalBalance) {
     displayDiv.appendChild(newDiv);
   } else {
     newDiv.classList.add('display-live-balance');
-    newP.innerText = `£ ${liveBalance} `;
+    newP.innerText = `${getUserSymbol()} ${liveBalance.toLocaleString()}`;
     displayDiv.appendChild(newDiv);
     newDiv.appendChild(newP);
   }
   // setTimeout(() => (displayDiv.innerText = 'You are good!'), 4000);
+}
+
+function getUserSymbol() {
+  return user.currency === 'USD' ? '$' : user.currency === 'GBP' ? '£' : '€';
 }
