@@ -1,0 +1,195 @@
+* {
+  text-align: center;
+  font-size: 1.1rem;
+}
+.main-background {
+  background-image: url('../images/Bullish-and-bearish-.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+/* form {
+  display: flex;
+  flex-direction: column;
+} */
+.container-grid {
+  display: grid;
+  grid-template-columns: 0.9fr 1.6fr 0.7fr;
+  grid-template-rows: 0.9fr 1.1fr 1fr 1fr 1fr 1fr;
+  gap: 1em 1em;
+  grid-auto-flow: row;
+  grid-template-areas:
+    'header header header'
+    'user-info display-balance weather'
+    'user-info display-balance weather'
+    'add-share display-balance weather'
+    'add-share table-container quotes'
+    'add-share table-container quotes';
+  padding-bottom: 2rem;
+  height: 100vh;
+}
+.header,
+.user-info,
+.display-balance,
+.weather,
+.add-share,
+.table-container,
+.quotes {
+  border: 1px solid white;
+  border-radius: 15px;
+}
+
+.user-info,
+.display-balance,
+.weather,
+.add-share,
+.table-container,
+.quotes {
+  border: 1px solid white;
+  border-radius: 15px;
+  background-color: rgba(240, 248, 255, 0.507);
+}
+.header {
+  grid-area: header;
+  background-color: rgba(240, 248, 255, 0.11);
+  color: aliceblue;
+  max-height: 5rem;
+  display: flex;
+  justify-content: space-between;
+  align-self: center;
+  margin-top: 1rem;
+}
+h1 {
+  padding: 1rem;
+  /* color: rgb(255,200,61); */
+  text-shadow: 2px 2px black;
+
+}
+.bear-img {
+  border-radius: 0 15px 15px 0;
+}
+.bull-img {
+  border-radius: 15px 0 0 15px;
+}
+.user-info {
+  grid-area: user-info;
+}
+
+.add-share {
+  grid-area: add-share;
+}
+
+.display-balance {
+  grid-area: display-balance;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.display-live-balance {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  padding-right: 2rem;
+  font-size: 4rem;
+  font-weight: 600;
+  color: rgb(46, 248, 255);
+  background-image: url('../images/tree.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 15px;
+  height: 100%;
+  box-shadow: 0 0 8px 8px rgb(41, 180, 204) inset;
+}
+#p-final-balance {
+  font-size: 3rem;
+  color: rgb(46, 248, 255);
+  background-color: rgba(0, 0, 0, 0.61);
+  border-radius: 10px;
+}
+
+.display-live-balance-negative {
+  background-color: rgb(5, 60, 240);
+  font-size: 5rem;
+  color: white;
+}
+.weather {
+  grid-area: weather;
+}
+
+.table-container {
+  grid-area: table-container;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.quotes {
+  grid-area: quotes;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1rem;
+}
+
+button {
+  margin: 0.2rem;
+}
+label {
+  font-weight: bold;
+}
+
+/* quote-form html */
+.hide {
+  display: none;
+}
+.visible {
+  display: block;
+}
+
+#input-quote-form,
+#search-quote-form,
+#edit-quote-form {
+  padding: 1rem;
+  margin: 0 auto;
+  max-width: 50vw;
+}
+
+/* quotes display area*/
+#show-more {
+  font-style: italic;
+  color: rgb(2, 65, 2);
+  border: none;
+  background: none;
+}
+#display-quote {
+  font-style: italic;
+  font-weight: 600;
+  font-size: 1.5rem;
+  padding: 0 5px 0 5px;
+}
+#explanation {
+  background-color: rgba(18, 101, 112, 0.726);
+  color: white;
+}
+
+#generated-main-div {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 1rem;
+  padding: 1rem;
+  border-top: 1px solid grey;
+}
+#generated-main-div p:first-child {
+  font-weight: bold;
+  font-style: italic;
+}
+#generated-secondary-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1rem;
+}
+#generated-secondary-div button {
+  margin-top: 1rem;
+}
