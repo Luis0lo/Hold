@@ -65,8 +65,8 @@ function getExchangeUrl(baseCurrency) {
 //   return obj;
 // }
 
-function getExchangeValue(){
-  return {USD: 1.34, EUR: 1.18, GBP: 1}
+function getExchangeValue() {
+  return { USD: 1.34, EUR: 1.18, GBP: 1 };
 }
 
 // const weatherKey = WEATHER_KEY

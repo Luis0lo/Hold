@@ -21,8 +21,16 @@
             <h1>Hold</h1>
             <img class='bear-img' src="./images/bear2.jpg" alt="">
           </div>
-          <div class="user-info">
-            <div>User login/info</div>
+          <div class="user-info p-4">
+            <div><label for="currencyList" class="form-label">Select your currency</label>
+              <input class="form-control" list="currencylistOptions" id="currencyList" placeholder="Type to search...">
+              <datalist id="currencylistOptions">
+                <option value="USD">
+                <option value="GBP">
+                <option value="EUR">
+              </datalist>
+            </div>
+            <button type="button" class="btn btn-success" id='currency-list-btn'>Submit</button>
           </div>
           <div class="add-share">
             <div class="add-shares-container m-1">
@@ -72,7 +80,7 @@
             </div>
           </div>
           <div class="weather">
-            <div>Display Tomorrows Weather</div>
+            <!-- <div>Display Tomorrows Weather</div> -->
           </div>
           <div class="table-container">
             <div id=""></div>

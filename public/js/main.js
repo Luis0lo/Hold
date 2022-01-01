@@ -27,8 +27,18 @@ const shares = [
 const user = {
   firstName: 'Luis',
   lastName: 'Rodrigues',
-  currency: 'USD',
+  currency: 'GBP',
 };
+
+const selectcurrencyBtn = document.querySelector('#currency-list-btn');
+const currencySelected = document.querySelector('#currencyList').value;
+
+function selectCurrency() {
+  user.currency = currencySelected;
+  console.log(currencySelected);
+}
+
+selectcurrencyBtn.addEventListener('click', selectCurrency);
 
 const submitButton = document.querySelector('#add-shares-btn');
 submitButton.addEventListener('click', handleSubmit);
@@ -112,7 +122,6 @@ async function getBalance() {
   console.log('Invested', totalBalance, 'Live', liveBalance);
   showBalance(liveBalance, totalBalance);
 }
-
 
 function showBalance(liveBalance, totalBalance) {
   const newDiv = document.createElement('div');
