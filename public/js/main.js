@@ -7,14 +7,14 @@ const shares = [
     liveTotal: 0,
     currency: 'USD',
   },
-  {
-    name: 'AAPL',
-    quantity: 10,
-    price: 150,
-    total: 1500,
-    liveTotal: 0,
-    currency: 'USD',
-  },
+  // {
+  //   name: 'AAPL',
+  //   quantity: 10,
+  //   price: 150,
+  //   total: 1500,
+  //   liveTotal: 0,
+  //   currency: 'USD',
+  // },
   {
     name: 'GOOGL',
     quantity: 2,
@@ -31,11 +31,11 @@ const user = {
 };
 
 const selectcurrencyBtn = document.querySelector('#currency-list-btn');
-const currencySelected = document.querySelector('#currencyList').value;
 
 function selectCurrency() {
+  const currencySelected = document.querySelector('#currencyList').value;
   user.currency = currencySelected;
-  console.log(currencySelected);
+  console.log('currency selected', currencySelected);
 }
 
 selectcurrencyBtn.addEventListener('click', selectCurrency);
@@ -96,7 +96,6 @@ function getShareData() {
 const balanceBtn = document.querySelector('#balance-btn');
 balanceBtn.addEventListener('click', getBalance);
 
-//get the total value of the foreign shares in GBP
 function getBalanceInUserCurrency(currency, value, invested) {
   currency = shares
     .filter((i) => i.currency === currency)
@@ -118,7 +117,7 @@ async function getBalance() {
   await getLiveBalance();
   const totalBalance = await getConvertionOf('total');
   const liveBalance = await getConvertionOf('liveTotal');
-  console.log(shares);
+  console.log('total live balance update', shares);
   console.log('Invested', totalBalance, 'Live', liveBalance);
   showBalance(liveBalance, totalBalance);
 }

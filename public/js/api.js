@@ -25,8 +25,8 @@ async function getStockData() {
 }
 
 async function getLiveBalance() {
-  // const currentPrice =await getStockData()
-  const currentPrice = [1060, 178, 2938];
+  const currentPrice = await getStockData();
+  // const currentPrice = [1060, 178, 2938];
   // add total live total into the database
   shares.forEach((share, i) => {
     share.liveTotal = currentPrice[i] * share.quantity;
@@ -43,31 +43,31 @@ function getExchangeUrl(baseCurrency) {
   return exchangeUrl;
 }
 
-// async function getExchangeValue(baseCurrency) {
-//   const response = await fetch(`${getExchangeUrl(baseCurrency)}`);
-//   const data = await response.json();
+async function getExchangeValue(baseCurrency) {
+  const response = await fetch(`${getExchangeUrl(baseCurrency)}`);
+  const data = await response.json();
 
-//   const exchangeArr = [];
-//   data['data'].map((x) => {
-//     Object.entries(x[0]).filter(([key, value]) => {
-//       if (key === 'symbol') exchangeArr.push(value.slice(-3));
-//       if (key === 'price') exchangeArr.push(value);
-//     });
-//   });
+  const exchangeArr = [];
+  data['data'].map((x) => {
+    Object.entries(x[0]).filter(([key, value]) => {
+      if (key === 'symbol') exchangeArr.push(value.slice(-3));
+      if (key === 'price') exchangeArr.push(value);
+    });
+  });
 
-//   const obj = { [baseCurrency]: 1 };
-//   for (let i = 0; i < exchangeArr.length; i += 2) {
-//     const key = exchangeArr[i];
-//     const value = exchangeArr[i + 1];
-//     obj[key] = value;
-//   }
-
-//   return obj;
-// }
-
-function getExchangeValue() {
-  return { USD: 1.34, EUR: 1.18, GBP: 1 };
+  const obj = { [baseCurrency]: 1 };
+  for (let i = 0; i < exchangeArr.length; i += 2) {
+    const key = exchangeArr[i];
+    const value = exchangeArr[i + 1];
+    obj[key] = value;
+  }
+  console.log('Exchange value', obj);
+  return obj;
 }
+
+// function getExchangeValue() {
+//   return { USD: 1.34, EUR: 1.18, GBP: 1 };
+// }
 
 // const weatherKey = WEATHER_KEY
 // const city = 'Manchester'
