@@ -10,32 +10,33 @@ Check for inspirational quotes to keep holding your shares, contribute with more
 
 ## Folder structure
 
-> public
+public
+
+> js
 >
-> > js
-> >
-> > > **main.js** (main logic of the app, percentages, currency covertion etc...)  
-> > > **api.js** (fetch the external API for shares price and exchange rates)  
-> > > **quoteApi.js** (quotes logic, CRUD operations client side with DOM manipulation)
+> > **main.js** (main logic of the app, percentages, currency covertion etc...)  
+> > **api.js** (fetch the external API for shares price and exchange rates)  
+> > **quoteApi.js** (quotes logic, CRUD operations client side with DOM manipulation)
 
-> > **index.html** (what is render to the browser)
+> **index.html** (what is render to the browser)
 
-> bin (listen port defined)  
-> db
+bin (listen PORT defined)
+
+db
+
+> scripts
 >
-> > scripts
-> >
-> > > **createQuotesTable.js** (SQL create table)  
-> > > **populateQuotesTable.js** (SQL insert data to table)
+> > **createQuotesTable.js** (SQL create table)  
+> > **populateQuotesTable.js** (SQL insert data to table)
 
-> > **connection.js** (set postgres connection )
+> **connection.js** (set postgres connection )
 
-> models
->
-> > **quotes.js** (defined CRUD to connect with the database)
+models
 
-> routes
->
-> > **quotes.js** (defined CRUD routes)
+> **quotes.js** (defined CRUD to connect with the database)
 
-> **App.js** (main app setup)
+routes
+
+> **quotes.js** (defined CRUD routes)
+
+**App.js** (main app setup)
