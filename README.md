@@ -1,5 +1,6 @@
-# Hold
+# Hold 
 
+## Purpose
 One place! Forget about opening different brokers to get a sense of your live balance investments
 
 Project features:

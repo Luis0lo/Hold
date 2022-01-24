@@ -2,7 +2,7 @@ const userShares = [
   {
     name: 'TSLA',
     quantity: 2,
-    price: 800,
+    price: 700,
     // For future extension - track user transactions to give accurate figures
     // Right now, we are converting a historic price every time we use the app.
     // orders: [
@@ -17,7 +17,7 @@ const userShares = [
     //   },
     //   {},
     // ],
-    total: 1600,
+    total: 1400,
     currentMarketValueTotal: 0,
     currency: 'USD',
   },
@@ -32,8 +32,8 @@ const userShares = [
   {
     name: 'GOOGL',
     quantity: 2,
-    price: 2900,
-    total: 5800,
+    price: 2500,
+    total: 5000,
     currentMarketValueTotal: 0,
     currency: 'USD',
   },
@@ -110,7 +110,7 @@ balanceBtn.addEventListener('click', getBalance);
 
 async function getConvertedTotals() {
   const exchangeRates = await getExchangeRates(user.currency);
-console.log('exhange---', exchangeRates);
+  console.log('exhange---', exchangeRates);
   let runningInvestedTotal = 0;
   let runningCurrentMarketTotal = 0;
   userShares.forEach((share) => {
