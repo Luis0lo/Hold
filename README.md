@@ -9,6 +9,8 @@ Add your shares and get the live balance of your investment in your preferred cu
 
 Check for inspirational quotes to keep holding your shares, contribute with more quotes, edit and delete them if you like so.
 
+
+
 ## Getting Started
 
 ### To build from zero
@@ -78,3 +80,15 @@ routes
 - Able to Fetch only up to 3 different shares (you'll need to update the fetch request to get all of the live prices for userShares object).
 - Major currencies available to select as base USD, GBP and EUR.
 - User shares is a dummy database, object inserted on [main.js](https://github.com/Luis0lo/Hold/blob/main/public/js/main.js)
+
+## Images
+General view  
+<img src="public/browser_img/main.jpg" width="700px">  
+Display description of the quote  
+<img src="public/browser_img/quote.jpg" width="400px">    
+Show balance  
+<img src="public/browser_img/balance.jpg" width="400px">    
+Add new quote  
+<img src="public/browser_img/addquote.jpg" width="400px">    
+Search for a quote  
+<img src="public/browser_img/search.jpg" width="400px">  
