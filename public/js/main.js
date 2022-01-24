@@ -1,10 +1,24 @@
-const shares = [
+const userShares = [
   {
     name: 'TSLA',
     quantity: 2,
-    price: 1000,
-    total: 2000,
-    liveTotal: 0,
+    price: 800,
+    // For future extension - track user transactions to give accurate figures
+    // Right now, we are converting a historic price every time we use the app.
+    // orders: [
+    //   {
+    //     date: '2020-01-01:14:00:00',
+    //     price: 1000,
+    //     quantity: 3,
+    //     currency: USD,
+    //     currencyPaid: GBP,
+    //     exchangeRate: 1.12,
+    //     totalPaidInLocalCurrency: '', // (quantity * price) */ exchangeRate
+    //   },
+    //   {},
+    // ],
+    total: 1600,
+    currentMarketValueTotal: 0,
     currency: 'USD',
   },
   // {
@@ -12,7 +26,7 @@ const shares = [
   //   quantity: 10,
   //   price: 150,
   //   total: 1500,
-  //   liveTotal: 0,
+  //   currentMarketValueTotal: 0,
   //   currency: 'USD',
   // },
   {
@@ -20,7 +34,7 @@ const shares = [
     quantity: 2,
     price: 2900,
     total: 5800,
-    liveTotal: 0,
+    currentMarketValueTotal: 0,
     currency: 'USD',
   },
 ];
@@ -47,12 +61,11 @@ function handleSubmit(e) {
   e.preventDefault();
   doesShareExists();
   document.querySelector('form').reset();
-  console.log(shares);
 }
 
 function doesShareExists() {
   const data = getShareData();
-  const index = shares.findIndex(function (share) {
+  const index = userShares.findIndex(function (share) {
     return share.name === data.name;
   });
   if (index >= 0) {
@@ -62,7 +75,7 @@ function doesShareExists() {
 }
 
 function addNewShare({ name, quantity, price, currency }) {
-  shares.push({
+  userShares.push({
     name: name,
     quantity: Number(quantity),
     price: Number(price),
@@ -72,12 +85,11 @@ function addNewShare({ name, quantity, price, currency }) {
 }
 
 function updateShare(index, { quantity, price }) {
-  const shareNumber = (shares[index].quantity += Number(quantity));
+  const shareNumber = (userShares[index].quantity += Number(quantity));
   const currentTotal = quantity * price;
-  const sharePrice = (shares[index].total + currentTotal) / shareNumber;
-  shares[index].price = sharePrice;
-  shares[index].total = shareNumber * sharePrice;
-  // console.log(shares[index]);
+  const sharePrice = (userShares[index].total + currentTotal) / shareNumber;
+  userShares[index].price = sharePrice;
+  userShares[index].total = shareNumber * sharePrice;
 }
 
 function getShareData() {
@@ -96,33 +108,46 @@ function getShareData() {
 const balanceBtn = document.querySelector('#balance-btn');
 balanceBtn.addEventListener('click', getBalance);
 
-function getBalanceInUserCurrency(currency, value, invested) {
-  currency = shares
-    .filter((i) => i.currency === currency)
-    .reduce((total, share) => {
-      const balance = total + share[`${invested}`];
-      return balance;
-    }, 0);
-  return Math.round(currency / value);
-}
+async function getConvertedTotals() {
+  const exchangeRates = await getExchangeRates(user.currency);
+console.log('exhange---', exchangeRates);
+  let runningInvestedTotal = 0;
+  let runningCurrentMarketTotal = 0;
+  userShares.forEach((share) => {
+    console.log(share);
+    let exchangeRate = exchangeRates.find(
+      (rate) => rate.symbol === share['currency']
+    );
+    console.log(exchangeRate);
+    runningInvestedTotal += share['total'] / exchangeRate.price;
+    runningCurrentMarketTotal +=
+      share['currentMarketValueTotal'] / exchangeRate.price;
+  });
 
-async function getConvertionOf(total) {
-  const exchange = await getExchangeValue(user.currency);
-  return Object.entries(exchange).reduce((acc, [key, value]) => {
-    return acc + getBalanceInUserCurrency(key, value, total);
-  }, 0);
+  return {
+    runningInvestedTotal,
+    runningCurrentMarketTotal,
+  };
 }
 
 async function getBalance() {
-  await getLiveBalance();
-  const totalBalance = await getConvertionOf('total');
-  const liveBalance = await getConvertionOf('liveTotal');
-  console.log('total live balance update', shares);
-  console.log('Invested', totalBalance, 'Live', liveBalance);
-  showBalance(liveBalance, totalBalance);
+  await refreshBalance();
+  const convertedBalances = await getConvertedTotals();
+
+  console.log(
+    'Invested',
+    convertedBalances.runningInvestedTotal,
+    'Live',
+    convertedBalances.runningCurrentMarketTotal
+  );
+
+  showBalance(
+    convertedBalances.runningInvestedTotal,
+    convertedBalances.runningCurrentMarketTotal
+  );
 }
 
-function showBalance(liveBalance, totalBalance) {
+function showBalance(totalBalance, liveBalance) {
   const newDiv = document.createElement('div');
   const newP = document.createElement('p');
   newP.setAttribute('id', 'p-final-balance');

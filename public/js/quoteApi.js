@@ -133,7 +133,7 @@ async function handleSearchAll() {
   displaySearch(payload);
   // console.log(payload)
 }
-//do the fecth requirement
+//do the fecth requiremen
 
 async function getDataByAuthor(name) {
   const response = await fetch(`http://localhost:3000/quotes?author=${name}`);

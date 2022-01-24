@@ -1,35 +1,40 @@
-// to get real data toggle comment on lines 27-28 and
-//toggle comment getExchangeValue lines 37-38
-
 const key = API_KEY;
 
 function getAllTickers() {
-  return (allTickers = shares
+  return userShares
     .map((ticker) => {
       return ticker.name;
     })
-    .join(','));
+    .join(',');
 }
 
-async function getStockData() {
+async function getRealtimeSharePrices() {
   const tickers = getAllTickers();
   const response = await fetch(
     `https://api.stockdata.org/v1/data/quote?symbols=${tickers}&api_token=${key}`
   );
   const data = await response.json();
-  console.log('data fetched', data['data']);
-  const price = data['data'].map((ticker) => {
-    return ticker.price;
+  // console.log('data fetched', data['data']);
+  const realtimePrices = data['data'].map((ticker) => {
+    return {
+      ticker: ticker.ticker,
+      price: ticker.price,
+    };
   });
-  return price;
+  // console.log('realtimeData from API', realtimePrices);
+  return realtimePrices;
 }
 
-async function getLiveBalance() {
-  const currentPrice = await getStockData();
-  // const currentPrice = [1060, 178, 2938];
-  // add total live total into the database
-  shares.forEach((share, i) => {
-    share.liveTotal = currentPrice[i] * share.quantity;
+async function refreshBalance() {
+  const sharePrices = await getRealtimeSharePrices();
+
+  userShares.forEach((userShare, i) => {
+    var matchingShare = sharePrices.find(
+      (sharePrice) => sharePrice.ticker == userShare.name
+    );
+    if (matchingShare && matchingShare.price)
+      userShare.currentMarketValueTotal =
+        matchingShare.price * userShare.quantity;
   });
 }
 
@@ -43,26 +48,22 @@ function getExchangeUrl(baseCurrency) {
   return exchangeUrl;
 }
 
-async function getExchangeValue(baseCurrency) {
+async function getExchangeRates(baseCurrency) {
   const response = await fetch(`${getExchangeUrl(baseCurrency)}`);
   const data = await response.json();
+  // console.log('exchange rate data', data);
 
-  const exchangeArr = [];
-  data['data'].map((x) => {
-    Object.entries(x[0]).filter(([key, value]) => {
-      if (key === 'symbol') exchangeArr.push(value.slice(-3));
-      if (key === 'price') exchangeArr.push(value);
-    });
+  const exchangeRates = data['data'].map((x) => {
+    return {
+      symbol: x[0]['symbol'].slice(-3),
+      price: x[0]['price'],
+    };
   });
+  exchangeRates.push({ symbol: baseCurrency, price: 1 });
 
-  const obj = { [baseCurrency]: 1 };
-  for (let i = 0; i < exchangeArr.length; i += 2) {
-    const key = exchangeArr[i];
-    const value = exchangeArr[i + 1];
-    obj[key] = value;
-  }
-  console.log('Exchange value', obj);
-  return obj;
+  console.log('my mapped exchange rate data', exchangeRates);
+  
+  return exchangeRates;
 }
 
 // function getExchangeValue() {

@@ -13,6 +13,8 @@ const router = express.Router();
 /* GET quotes listing and by author. */
 router.get('/', async function (req, res, next) {
   const { author, ranking } = req.query;
+
+  
   // ?author=Warren
   if (author) {
     const quoteByAuthor = await getQuoteByAuthor(author);
@@ -28,6 +30,9 @@ router.get('/', async function (req, res, next) {
   const allQuotes = await getAllQuotes();
   res.json({ success: true, payload: allQuotes });
 });
+
+
+
 
 router.get('/:id', async (req, res) => {
   const { id } = req.params;

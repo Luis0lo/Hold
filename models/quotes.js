@@ -3,7 +3,7 @@ import  query  from "../db/connection.js";
 export async function getAllQuotes() {
   const result = await query(`SELECT * FROM quotes;`);
   return result.rows;
-}
+} 
 export async function getQuoteById(id) {
   const data = await query(`SELECT * FROM quotes WHERE id = $1;`, [id]);
   return data.rows;
