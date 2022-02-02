@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
+  "node": "16.13.1",
   "scripts": {
     "start": "node ./bin/www.js",
     "dev": "nodemon -r dotenv/config ./bin/www.js",
