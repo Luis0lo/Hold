@@ -1,4 +1,5 @@
-const key = API_KEY;
+// const key = API_KEY;
+const key =  process.env.API_KEY || API_KEY ;
 
 function getAllTickers() {
   return userShares
