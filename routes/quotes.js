@@ -7,6 +7,7 @@ import {
   getQuoteByRanking,
   updateQuoteById,
   deleteQuoteById,
+  getRandomQuote,
 } from '../models/quotes.js';
 const router = express.Router();
 
@@ -14,7 +15,6 @@ const router = express.Router();
 router.get('/', async function (req, res, next) {
   const { author, ranking } = req.query;
 
-  
   // ?author=Warren
   if (author) {
     const quoteByAuthor = await getQuoteByAuthor(author);
@@ -31,8 +31,11 @@ router.get('/', async function (req, res, next) {
   res.json({ success: true, payload: allQuotes });
 });
 
-
-
+router.get('/random', async function (req, res, next) {
+  const quote = await getRandomQuote();
+  console.log(quote);
+  res.json({ payload: quote });
+});
 
 router.get('/:id', async (req, res) => {
   const { id } = req.params;
