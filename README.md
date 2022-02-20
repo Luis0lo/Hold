@@ -9,8 +9,7 @@ Add your shares and get the live balance of your investment in your preferred cu
 
 Check for inspirational quotes to keep holding your shares, contribute with more quotes, edit and delete them if you like so.
 
-
-
+I'm step by step converting this project into a React app, [repo](https://github.com/Luis0lo/Hold_React) / [website](https://holdreact.netlify.app/)
 ## Getting Started
 
 ### To build from zero
