@@ -11,7 +11,8 @@
     "dev": "nodemon -r dotenv/config ./bin/www.js",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "dbcreatequotestable": "node -r dotenv/config ./db/scripts/quotes/createQuotesTable.js",
-    "dbpopulatequotestable": "node -r dotenv/config ./db/scripts/quotes/populateQuotesTable.js"
+    "dbpopulatequotestable": "node -r dotenv/config ./db/scripts/quotes/populateQuotesTable.js",
+    "dbdeletequotestable": "node -r dotenv/config ./db/scripts/quotes/deleteQuotesTable.js"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",

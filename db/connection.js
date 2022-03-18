@@ -1,6 +1,7 @@
 import pg from 'pg';
 import { connectionString } from '../configu.js';
 
+
 const pool = new pg.Pool({
   connectionString,
   ssl: { rejectUnauthorized: false },

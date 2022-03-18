@@ -69,3 +69,24 @@ router.delete('/:id', async (req, res) => {
 });
 
 export default router;
+
+//populate
+// import db from "../../connection.js";
+
+// const response = await db.query(
+//   `INSERT INTO users (username, email, favourites) VALUES ($1, $2, $3);`,
+//   ["Luis", "luiscvrodrigues@gmail.com", ['Roast peppers', 'Pea Soup']]
+// );
+
+// console.log(response);
+
+// db.end();
+
+//delete
+// import db from "../../connection.js";
+
+// const response = await db.query(`DROP TABLE IF EXISTS users;`);
+
+// console.log(`users table deleted`, response);
+
+// db.end();
